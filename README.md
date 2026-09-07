@@ -1,44 +1,58 @@
-# Vaskos
-BLARE V2 — 3-Switch Macropad & Alarm Clock
-A custom 3-switch Cherry MX macropad and alarm clock built with the Seeeduino XIAO ESP32-C3 for the Hack Club BLARE initiative.
+#  Vaskos — Custom Desktop Alarm Clock & Macropad
 
-Overview
-BLARE V2 is an open-source hardware project designed to function both as a desktop macropad and a programmable alarm clock. It features three mechanical key switches, an integrated buzzer for audio notifications, and a dedicated interface header for an external display module.
+[![Platform: BLARE](https://img.shields.io/badge/Platform-BLARE%20%28Hack%20Club%20STARDANCE%29-ff69b4.svg)](https://blare.hackclub.com)
+[![Status: In Progress](https://img.shields.io/badge/Status-In%20Progress-yellow.svg)](#)
+[![Level: Intermediate](https://img.shields.io/badge/Level-Intermediate-blue.svg)](#)
 
-Technical Specifications
-Microcontroller: Seeed Studio XIAO ESP32-C3
+**Vaskos** is an open-source, angled desktop alarm clock and productiveness timer built for the **BLARE** initiative by Hack Club. It features an integrated 3x3 mechanical keypad (macropad), a retro 8-bit alarm system, and an optimized hardware footprint powered by the Seeed Studio XIAO ESP32C3.
 
-Inputs: 3× Cherry MX mechanical switches (Push buttons)
+---
 
-Audio Output: Integrated active/passive buzzer
+##  Key Features
 
-Display Interface: 8-pin header (SPI display support)
+- **Puzzle Alarm:** Deactivate the morning alarm by completing button sequences or solving quick visual prompts.
+- **Focus Timer:** Functions as a desktop Pomodoro timer during work hours.
+- **Retro Audio Feedback:** Custom 8-bit sound effects via a 3.3V piezo buzzer.
+- **Ergonomic Design:** 45-degree angled 3D-printed enclosure secured with M3 heat-set inserts.
 
-Power & Connectivity: USB-C via XIAO ESP32-C3
+---
 
-Form Factor: Custom 2-layer PCB with rounded Edge.Cuts corners and M3 symmetric mounting holes
+##  Hardware Requirements & Bill of Materials
 
-Hardware & PCB Features
-Dual-Layer Routing: 100% routed traces on Top and Bottom layers with optimized via placement.
+| Component | Qty | Description / Pin Connection |
+| :--- | :---: | :--- |
+| **Seeed Studio XIAO ESP32C3** | 1 | Microcontroller (11 Available GPIOs) |
+| **2.25″ TFT Display** | 1 | SPI Interface for clock UI & timers |
+| **Cherry MX Switches** | 9 | Configured in a 3x3 Key Matrix |
+| **1N4148 Diodes** | 9 | Matrix ghosting prevention |
+| **3.3V Active/Passive Buzzer** | 1 | Audio feedback & alarm tones |
+| **3D Printed Enclosure** | 1 | Angled desktop housing with M3 inserts |
 
-USB-C Accessibility: Positioned with proper connector clearance extending beyond the board perimeter.
+---
 
-Display Mounting: Inline pin header footprint designed for direct screen mounting without loose jumper wires.
+##  GPIO Pin Budgeting (11 Pins Total)
 
-Grounding: Solid copper ground plane (GND fill) across unused PCB areas for reduced noise and reliable operation.
+To fit all features onto the 11 GPIO pins of the XIAO ESP32C3, hardware pin-saving optimizations are implemented for the display:
 
-Project Structure
-Plaintext
-├── hardware/
-│   ├── blare_v2.kicad_sch    # Main KiCad schematic
-│   ├── blare_v2.kicad_pcb    # PCB layout file
-│   └── gerbers/              # Production Gerber & Drill files
-└── README.md
-Getting Started
-Clone the repository:
+###  Display Optimization (4 GPIOs)
+* `GND` $\rightarrow$ **GND**
+* `VCC` $\rightarrow$ **3.3V**
+* `BL` (Backlight) $\rightarrow$ **GND** *(Hardwired always-on)*
+* `RST` (Reset) $\rightarrow$ **3.3V** *(Hardwired to save 1 pin)*
+* `SCL` / `SDA` / `DC` / `CS` $\rightarrow$ **4 Dedicated GPIO Pins**
 
-Bash
-git clone https://github.com/your-username/blare-v2.git
-Open blare_v2.kicad_pro in KiCad 7.0+ to view or modify the schematic and PCB layout.
+###  Audio & ⌨️ 3x3 Key Matrix (7 GPIOs)
+* **Buzzer:** 1 PWM GPIO Pin
+* **Matrix Rows (3):** 3 Output GPIO Pins
+* **Matrix Columns (3):** 3 Input GPIO Pins (with internal pull-up/down)
 
-Review the Gerber files in /gerbers for PCB manufacturing.
+---
+
+##  Project Structure
+
+```text
+.
+├── CAD/              # 3D models and STL files for the enclosure
+├── Hardware/         # KiCad schematics and PCB layout files
+├── Firmware/         # Arduino / C++ source code
+└── README.md         # Project documentation
