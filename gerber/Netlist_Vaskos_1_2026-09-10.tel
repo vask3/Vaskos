@@ -1,0 +1,32 @@
+$PACKAGES
+,
+        Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB ! Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB ! 'SW_Push' ,
+        ; SW1 SW2 SW3 SW4 
+Buzzer_Beeper:Buzzer_12x9.5RM7.6 ! Buzzer_Beeper:Buzzer_12x9.5RM7.6 ! Buzzer ; ,
+        BZ1 
+,
+        Connector_PinSocket_2.54mm:PinSocket_1x08_P2.54mm_Vertical ! Connector_PinSocket_2.54mm:PinSocket_1x08_P2.54mm_Vertical ! 'Conn_01x08_Pin' ,
+        ; J1 
+,
+        footprints1:XIAO-Generic-Hybrid-14P-2.54-21X17.8MM ! footprints1:XIAO-Generic-Hybrid-14P-2.54-21X17.8MM ! 'XIAO-ESP32-C3-SMD' ,
+        ; U1 
+,
+        MountingHole:MountingHole_3.2mm_M3 ! MountingHole:MountingHole_3.2mm_M3 ! MountingHole ,
+        ; H1 H2 H3 H4 
+$A_PROPERTIES
+$NETS
+'$3N11' ; SW3.2 U1.3 
+'$3N16' ; SW4.2 U1.4 
+'$3N20' ; BZ1.1 U1.8 
+'$3N6' ; SW2.2 U1.2 
+'$3N8' ; SW1.2 U1.1 
+'power_+3V3' ; J1.2 U1.12 
+'power_GND' ; BZ1.2 J1.1 SW1.1 SW2.1 SW3.1 SW4.1 U1.13 
+BL ; J1.8 U1.7 
+CS ; J1.7 U1.6 
+DC ; J1.6 U1.5 
+RST ; J1.5 U1.9 
+SCL ; J1.3 U1.10 
+SDA ; J1.4 U1.11 
+$SCHEDULE
+$END
